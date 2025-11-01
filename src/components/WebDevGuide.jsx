@@ -782,6 +782,11 @@ export default function WebDevGuide() {
       <Typography variant="body1" color="white" sx={{ mb: 4 }}>
         If the button reacts when hovered, you nailed it.
       </Typography>
+      <Typography variant="body1" color="white" sx={{ mb: 3 }}>
+        First community event drops soon: A Kahoot quiz goes live on November
+        5th. Stay tuned for upcoming tasks and mini-projects that will test your
+        skills and commitment.
+      </Typography>
     </Box>
   );
 }
