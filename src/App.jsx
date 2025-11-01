@@ -375,7 +375,7 @@ const Navbar = () => {
                   textAlign: "center",
                   mb: 6,
                 }}
-                data-aos="fade-up"
+              
               >
                 <Typography
                   color="white"
@@ -396,8 +396,7 @@ const Navbar = () => {
                     mx: "auto",
                     lineHeight: 1.6,
                   }}
-                  data-aos="fade-up"
-                  data-aos-delay="200"
+                  
                 >
                   A two-month online tech adventure by GDGC MBCET, packed with
                   coding, AI, and problem-solving challenges that'll push your
