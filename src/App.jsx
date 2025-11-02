@@ -46,7 +46,6 @@ const IceCrystal = ({ top, left, size, delay }) => {
   );
 };
 
-// Frosted Glass Container
 const FrostedGlass = ({ children }) => {
   return (
     <Box
@@ -292,7 +291,7 @@ const Navbar = () => {
           />
         </Box>
 
-        <Snowfall snowflakeCount={700} />
+        <Snowfall snowflakeCount={1000} />
 
         <Box sx={{ position: "relative", zIndex: 10 }}>
           <AppBar
@@ -375,19 +374,28 @@ const Navbar = () => {
                   textAlign: "center",
                   mb: 6,
                 }}
-              
               >
-                <Typography
-                  color="white"
-                  fontWeight="bold"
-                  className="font-5xl"
-                  sx={{
-                    mb: 3,
-                    fontSize: { xs: "2rem", sm: "3rem", md: "4rem" },
-                  }}
-                >
-                  The Winter Arc is here!
-                </Typography>
+                <div className="flex flex-row justify-center items-center">
+                  <Typography
+                    color="white"
+                    fontWeight="bold"
+                    className="font-5xl"
+                    sx={{
+                      mb: 3,
+                      fontSize: { xs: "2rem", sm: "3rem", md: "4rem" },
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src="/header.png"
+                      alt="Winterarc Logo"
+                      sx={{
+                        height: { xs: 80, sm: 70, md: 120 },
+                        width: "auto",
+                      }}
+                    />{" "}
+                  </Typography>
+                </div>
                 <Typography
                   variant="body1"
                   sx={{
@@ -396,7 +404,6 @@ const Navbar = () => {
                     mx: "auto",
                     lineHeight: 1.6,
                   }}
-                  
                 >
                   A two-month online tech adventure by GDGC MBCET, packed with
                   coding, AI, and problem-solving challenges that'll push your
@@ -404,13 +411,11 @@ const Navbar = () => {
                 </Typography>
               </Box>
 
-              {/* Web Dev Guide Component */}
               <WebDevGuide />
             </Box>
           </FrostedGlass>
         </Box>
 
-        {/* Footer */}
         <Box sx={{ position: "relative", zIndex: 10, mt: 8 }}>
           <FooterBar />
         </Box>

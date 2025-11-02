@@ -4,7 +4,11 @@ export default function WebDevGuide() {
   return (
     <Box sx={{ mt: 4 }}>
       {/* What web development really is */}
-      <Typography variant="h5" color="info.main" sx={{ mt: 5 }}>
+      <Typography
+        variant="h5"
+        color="info.main"
+        sx={{ mt: 5, fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" } }}
+      >
         What Web Development Really Is
         <hr />
       </Typography>
@@ -160,7 +164,11 @@ export default function WebDevGuide() {
       </List>
 
       {/* What You'll Learn */}
-      <Typography variant="h5" color="error.main" sx={{ mt: 5 }}>
+      <Typography
+        variant="h5"
+        color="error.main"
+        sx={{ mt: 5, fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" } }}
+      >
         What You'll Learn
         <hr />
       </Typography>
@@ -445,7 +453,11 @@ export default function WebDevGuide() {
       </Typography>
 
       {/* Tasks */}
-      <Typography variant="h5" color="error.main" sx={{ mt: 5 }}>
+      <Typography
+        variant="h5"
+        color="error.main"
+        sx={{ mt: 5, fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" } }}
+      >
         Tasks
         <hr />
       </Typography>
