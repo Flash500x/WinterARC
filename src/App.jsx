@@ -330,7 +330,7 @@ const Navbar = () => {
               </Stack>
               <Button
                 variant="contained"
-                href="https://forms.gle/ZYT38VU326kFYvW37"
+                href="https://gdg.community.dev/gdg-on-campus-mar-baselios-college-of-engineering-and-technology-trivandrum-india/"
                 target="_blank"
                 sx={{
                   background:
