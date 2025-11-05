@@ -213,9 +213,7 @@ const Navbar = () => {
                   color="white"
                   fontWeight="500"
                 >
-                  {isMobile
-                    ? "GDG on Campus"
-                    : "Google Developer Groups on Campus"}
+                  {isMobile ? "GDGoC" : "Google Developer Groups on Campus"}
                 </Typography>
               </Stack>
               <Button
