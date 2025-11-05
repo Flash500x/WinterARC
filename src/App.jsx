@@ -683,7 +683,7 @@ Expected outcome: A page that shows your name, a one-sentence intro, and a headi
                 ></Card2>
                 <div className="lg:col-span-2">
                   <Card2
-                    titles="Inside the <body> tag, add:A heading (<h1>) , A paragraph (<p>),Your name somewhere on the page "
+                    titles="Inside the <body> tag, add: A heading using the <h1> element, a paragraph using the <p> element, and your name displayed somewhere on the page."
                     iconFill="fa-solid"
                     iconCategory="fa-5"
                   ></Card2>
