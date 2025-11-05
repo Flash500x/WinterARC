@@ -836,11 +836,22 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
             className="mx-3 mt-15 text-white text-center xl:mx-40"
             data-aos="fade-up"
           >
-            <h3 className="text-2xl">
-              First community event drops soon: A Kahoot quiz goes live on
-              November 5th. Stay tuned for upcoming tasks and mini-projects that
-              will test your skills and commitment.
-            </h3>
+            <h2
+              className="text-3xl text-center mb-3 lg:text-5xl"
+              data-aos="fade-up"
+            >
+              Upcoming Quiz: HTML & CSS Fundamentals
+            </h2>
+            <p className="text-center lg:text-2xl xl:mx-50" data-aos="fade-up">
+              Test your knowledge on Wayground, November 5th, from 7:00 PM to
+              9:00 PM.<br></br>{" "}
+              <span className="text-red-600">
+                {" "}
+                Important: New users must create an account using the exact
+                email and name from their Winter Arc registration for tracking
+                purposes.
+              </span>
+            </p>
           </section>
         </main>
 
