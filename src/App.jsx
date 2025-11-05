@@ -392,7 +392,7 @@ const Navbar = () => {
               data-aos="fade-up"
             >
               <Cards
-                head="Databases"
+                head="Data bases"
                 des="Databases storing user data, content, auth tokens, the works"
                 iconFill="fa-solid"
                 iconCategory="fa-database"
