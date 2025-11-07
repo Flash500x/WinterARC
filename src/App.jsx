@@ -648,7 +648,7 @@ const Navbar = () => {
             </div>
             <div className="grid grid-cols-1 gap-2 xl:mx-20" data-aos="fade-up">
               <Cards
-                head="Task 1: Build a Minimal Webpage (No styling yet)"
+                head="Practice Task 1: Build a Minimal Webpage (No styling yet)"
                 des='Goal: Create a basic webpage that displays text on screen.
 
 Expected outcome: A page that shows your name, a one-sentence intro, and a heading that says "Learning HTML".'
@@ -699,7 +699,7 @@ Expected outcome: A page that shows your name, a one-sentence intro, and a headi
             <div className="mt-3">
               <div className="mb-3 xl:mx-20" data-aos="fade-up">
                 <Cards
-                  head="Task 2: Add Basic CSS Styling"
+                  head="Practice Task 2: Add Basic CSS Styling"
                   iconFill="fa-solid"
                   iconCategory="fa-circle"
                   des="Goal: Connect CSS and make the page less like a 1999 school project.
@@ -756,7 +756,7 @@ Expected outcome: The background colour changes, text has padding/spacing, and t
             <div className="mt-3 xl:mx-20">
               <div className="mb-3" data-aos="fade-up">
                 <Cards
-                  head="Task 3A: Add a Button (no hover yet)"
+                  head="Practice Task 3A: Add a Button (no hover yet)"
                   des="Goal: Introduce an interactive element, even if it does nothing meaningful yet.
 
 Expected outcome: A visible button that is pleasant to look at."
@@ -793,7 +793,7 @@ Expected outcome: A visible button that is pleasant to look at."
             <div className="mt-3 xl:mx-20">
               <div className="mb-3" data-aos="fade-up">
                 <Cards
-                  head="Task 3B: Add a Button Hover Effect"
+                  head="Practice Task 3B: Add a Button Hover Effect"
                   des="Goal: Introduce user feedback with CSS pseudo-classes.
 
 Expected outcome: When the mouse hovers over the button, colours or size change subtly.
@@ -841,14 +841,8 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
               Upcoming Quiz: HTML & CSS Fundamentals
             </h2>
             <p className="text-center lg:text-2xl xl:mx-50" data-aos="fade-up">
-              Test your knowledge on Wayground, November 5th, from 7:00 PM to
-              9:00 PM.<br></br>{" "}
-              <span className="text-red-600">
-                {" "}
-                Important: New users must create an account using the exact
-                email and name from their Winter Arc registration for tracking
-                purposes.
-              </span>
+              HTML and CSS Quiz <br></br>{" "}
+              <span className="text-green-600"> Status Completed</span>
             </p>
           </section>
         </main>
