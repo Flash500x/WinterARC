@@ -838,10 +838,9 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
               className="text-3xl text-center mb-3 lg:text-5xl"
               data-aos="fade-up"
             >
-              Upcoming Quiz: HTML & CSS Fundamentals
+              HTML & CSS Fundamentals
             </h2>
             <p className="text-center lg:text-2xl xl:mx-50" data-aos="fade-up">
-              HTML and CSS Quiz <br></br>{" "}
               <span className="text-green-600"> Status Completed</span>
             </p>
           </section>
