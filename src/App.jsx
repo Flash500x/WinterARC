@@ -24,17 +24,31 @@ const Card2 = ({ titles, desp, iconFill, iconCategory }) => {
     </div>
   );
 };
-const Card2Blue = ({ titles, desp, iconFill, iconCategory }) => {
+
+const Card2Blue = ({
+  titles,
+  desp,
+  iconFill,
+  iconCategory,
+  underlines = false, // default: no underline
+}) => {
   return (
-    <div className="bg-black p-3 border-[#0a1929] border-2">
+    <div className="bg-black p-3 border-[#0a1929] border-2 ">
       <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
-        <i class={`${iconFill} ${iconCategory} text-white text-2xl`}></i>
-        <p className="text-white text-2xl lg:text-3xl">{titles}</p>
+        <i className={`${iconFill} ${iconCategory} text-white text-2xl`}></i>
+        <p
+          className={`text-white text-2xl lg:text-3xl ${
+            underlines ? "underline underline-offset-4" : ""
+          }`}
+        >
+          {titles}
+        </p>
       </div>
       <p className="text-base text-white lg:text-2xl">{desp}</p>
     </div>
   );
 };
+
 const theme = createTheme({
   typography: {
     fontFamily: "'Wotfard', sans-serif",
@@ -842,17 +856,26 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
           </section>
           {/* NEW TASK 4 */}
           <div className="mt-3" id="task2">
-            <div className="mb-3 xl:mx-20" data-aos="fade-up">
+            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+              <Cards
+                head="Task 1: HTML and CSS Fundamentals Quiz"
+                des="Status: Completed"
+                iconCategory="fa-circle"
+                iconFill="fa-solid"
+                bgColor="#0b1929"
+              />
+            </div>
+            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
               <Cards
                 head="Task 2: Build a Simple 'About Me' Webpage"
                 des="Goal: Create a one-page mini-profile website that combines HTML structure, CSS layout, and images..."
                 iconCategory="fa-circle"
                 iconFill="fa-solid"
-                bgColor="bg-[#0a1929]"
+                bgColor="#0b1929"
               />
             </div>
 
-            <div className="mb-5 xl:mx-20" data-aos="fade-up">
+            <div className="mb-5 xl:mx-20 mx-3" data-aos="fade-up">
               <Card2Blue
                 titles="Structure (HTML)"
                 desp="Create a new file: index.html. After adding the boilerplate using ! or manually entering it to VS Code."
@@ -862,7 +885,7 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
             </div>
 
             <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3"
+              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
               data-aos="fade-up"
             >
               <Card2Blue
@@ -901,7 +924,7 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
               </div>
             </div>
 
-            <div className="mt-5 mb-5 xl:mx-20" data-aos="fade-up">
+            <div className="mt-5 mb-5 xl:mx-20 mx-3" data-aos="fade-up">
               <Card2Blue
                 titles="Styling (CSS)"
                 desp="Create your style.css."
@@ -911,7 +934,7 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
             </div>
 
             <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3"
+              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
               data-aos="fade-up"
             >
               <Card2Blue
@@ -951,7 +974,7 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
               </div>
             </div>
 
-            <div className="mt-5 mb-3 xl:mx-20" data-aos="fade-up">
+            <div className="mt-5 mb-3 xl:mx-20 mx-3" data-aos="fade-up">
               <Card2Blue
                 titles="Challenge (Optional Bonus)"
                 iconFill="fa-solid"
@@ -960,7 +983,7 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
             </div>
 
             <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3"
+              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
               data-aos="fade-up"
             >
               <Card2Blue
@@ -1032,10 +1055,11 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
                 className="block hover:opacity-80 transition-opacity duration-300 cursor-pointer"
               >
                 <Card2Blue
-                  titles="🔗 Setting up Git"
+                  titles="Setting up Git"
                   desp="Learn how to install and configure Git for version control. Click here to open the tutorial →"
                   iconFill="fa-brands"
                   iconCategory="fa-git-alt"
+                  underlines={true}
                 />
               </a>
               <a
@@ -1045,28 +1069,14 @@ Expected outcome: When the mouse hovers over the button, colours or size change 
                 className="block hover:opacity-80 transition-opacity duration-300 cursor-pointer"
               >
                 <Card2Blue
-                  titles="🔗 Viewing Your Project on the Web (GitHub Pages)"
+                  titles="Viewing Your Project on the Web (GitHub Pages)"
                   desp="Deploy your website live using GitHub Pages. Click here to open the tutorial →"
                   iconFill="fa-solid"
                   iconCategory="fa-rocket"
+                  underlines={true}
                 />
               </a>
             </div>
-          </section>
-          {/* END SUBMISSION INSTRUCTIONS */}
-          <section
-            className="mx-3 mt-15 text-white text-center xl:mx-40"
-            data-aos="fade-up"
-          >
-            <h2
-              className="text-3xl text-center mb-3 lg:text-5xl"
-              data-aos="fade-up"
-            >
-              HTML & CSS Fundamentals Quiz
-            </h2>
-            <p className="text-center lg:text-2xl xl:mx-50" data-aos="fade-up">
-              <span className="text-green-600"> Status : Completed</span>
-            </p>
           </section>
         </main>
 
