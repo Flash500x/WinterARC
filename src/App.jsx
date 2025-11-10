@@ -305,12 +305,12 @@ const Navbar = () => {
                 </ScrollLink>
 
                 <a
-                  href="https://gdg.community.dev/gdg-on-campus-mar-baselios-college-of-engineering-and-technology-trivandrum-india/"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSdvS43_EXfdzgfQVfmfHvmjx555_Rh0dA8un0-Cqi8-T4B-hQ/viewform"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white border border-white p-2 text-center cursor-pointer lg:p-5 hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out "
+                  className="text-white border border-white p-2 text-center cursor-pointer lg:p-5 lg:px-7  hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out "
                 >
-                  About GDGC
+                  Submit
                 </a>
               </div>
             </div>
