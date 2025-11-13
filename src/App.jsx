@@ -51,7 +51,7 @@ const BoxModel = ({
   colors,
 }) => {
   const layers = [
-    { name: "margin", value: margin, color: colors?.margin || "#b48558" },
+    { name: "margin", value: margin, color: colors?.margin || "#F8B88B" },
     { name: "border", value: border, color: colors?.border || "#F7DC6F" },
     { name: "padding", value: padding, color: colors?.padding || "#98D8C8" },
   ];
@@ -288,6 +288,8 @@ const Navbar = () => {
       once: true,
     });
   }, []);
+  const secondButton =
+    "https://gdg.community.dev/gdg-on-campus-mar-baselios-college-of-engineering-and-technology-trivandrum-india/";
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -391,16 +393,16 @@ const Navbar = () => {
                   offset={-50}
                   className="border border-white bg-white p-2 text-center cursor-pointer lg:p-5 hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out  "
                 >
-                  Task 2
+                  CSS
                 </ScrollLink>
 
                 <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSdvS43_EXfdzgfQVfmfHvmjx555_Rh0dA8un0-Cqi8-T4B-hQ/viewform"
+                  href={secondButton}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white border border-white p-2 text-center cursor-pointer lg:p-5 lg:px-7  hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out "
                 >
-                  Submit
+                  Join us
                 </a>
               </div>
             </div>
@@ -418,7 +420,7 @@ const Navbar = () => {
                 className="lg:flex lg: flex-col lg:items-center lg:justify-center"
                 data-aos="fade-up"
               >
-                <p className="text-center mx-6 mt-5 lg:text-3xl lg:w-250 xl:w-350 xl:px-10  ">
+                <p className="text-center mx-6 mt-5 lg:text-3xl lg:w-250 xl:w-400  ">
                   Web development is the practical, hands-on skill of creating
                   the sites and web applications people interact with every day.
                   News websites, dashboards, portfolios, video platforms—all of
@@ -763,7 +765,7 @@ const Navbar = () => {
             </div>
           </section>
           {/* NEW TASK 4 */}
-          <div className="mt-3" id="task2">
+          <div className="mt-3">
             <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
               <Cards
                 head="Task 1: HTML and CSS Fundamentals Quiz"
@@ -776,145 +778,21 @@ const Navbar = () => {
             <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
               <Cards
                 head="Task 2: Build a Simple 'About Me' Webpage"
-                des="Goal: Create a one-page mini-profile website that combines HTML structure, CSS layout, and images..."
+                des="Status: Completed"
                 iconCategory="fa-circle"
                 iconFill="fa-solid"
                 bgColor="#0b1929"
-              />
-            </div>
-
-            <div className="mb-5 xl:mx-20 mx-3" data-aos="fade-up">
-              <Card2Blue
-                titles="Structure (HTML)"
-                desp="Create a new file: index.html. After adding the boilerplate using ! or manually entering it to VS Code."
-                iconFill="fa-solid"
-                iconCategory="fa-file-code"
-              />
-            </div>
-
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
-              data-aos="fade-up"
-            >
-              <Card2Blue
-                titles="Inside the body, add:"
-                desp="<header> → Contains your name and tagline."
-                iconFill="fa-solid"
-                iconCategory="fa-1"
-              />
-              <Card2Blue
-                desp="<section> → Contains your profile image and short intro paragraph."
-                iconFill="fa-solid"
-                iconCategory="fa-2"
-              />
-              <Card2Blue
-                desp="<ul> or <ol> → A list of hobbies/interests."
-                iconFill="fa-solid"
-                iconCategory="fa-3"
-              />
-              <Card2Blue
-                desp="<a> → A clickable link."
-                iconFill="fa-solid"
-                iconCategory="fa-4"
-              />
-              <Card2Blue
-                desp="<footer> → Add © 2025 Your Name or a quote."
-                iconFill="fa-solid"
-                iconCategory="fa-5"
-              />
-              <div className="lg:col-span-2 xl:col-span-1">
-                <Card2Blue
-                  titles="Search prompts"
-                  desp='"HTML header element" • "HTML section element" • "HTML lists (ul vs ol)" • "HTML links (a tag)"'
-                  iconFill="fa-solid"
-                  iconCategory="fa-search"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 mb-5 xl:mx-20 mx-3" data-aos="fade-up">
-              <Card2Blue
-                titles="Styling (CSS)"
-                desp="Create your style.css."
-                iconFill="fa-solid"
-                iconCategory="fa-palette"
-              />
-            </div>
-
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
-              data-aos="fade-up"
-            >
-              <Card2Blue
-                desp="Give the header a background color and center the text."
-                iconFill="fa-solid"
-                iconCategory="fa-1"
-              />
-              <Card2Blue
-                desp="Make the image circular using border-radius: 50%."
-                iconFill="fa-solid"
-                iconCategory="fa-2"
-              />
-              <Card2Blue
-                desp="Use max-width and margin: auto to center the main content."
-                iconFill="fa-solid"
-                iconCategory="fa-3"
-              />
-              <Card2Blue
-                desp="Add line-height, font-family, and some color scheme consistency."
-                iconFill="fa-solid"
-                iconCategory="fa-4"
-              />
-              <div className="lg:col-span-2 xl:col-span-1">
-                <Card2Blue
-                  desp="Use :hover on the link — change color or underline it smoothly."
-                  iconFill="fa-solid"
-                  iconCategory="fa-5"
-                />
-              </div>
-              <div className="lg:col-span-2 xl:col-span-3">
-                <Card2Blue
-                  titles="Search prompts"
-                  desp='"CSS centering block elements" • "CSS border-radius circle image" • "CSS hover underline transition" • "CSS layout using margin and padding"'
-                  iconFill="fa-solid"
-                  iconCategory="fa-search"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 mb-3 xl:mx-20 mx-3" data-aos="fade-up">
-              <Card2Blue
-                titles="Challenge (Optional Bonus)"
-                iconFill="fa-solid"
-                iconCategory="fa-trophy"
-              />
-            </div>
-
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 xl:grid-cols-3 mx-3"
-              data-aos="fade-up"
-            >
-              <Card2Blue
-                desp='Use a Google Font (hint: search "How to use Google Fonts in CSS").'
-                iconFill="fa-solid"
-                iconCategory="fa-star"
-              />
-              <Card2Blue
-                desp="Add a box-shadow to the image or a section."
-                iconFill="fa-solid"
-                iconCategory="fa-star"
-              />
-              <Card2Blue
-                desp="Add a subtle hover zoom on the image using transform: scale()."
-                iconFill="fa-solid"
-                iconCategory="fa-star"
               />
             </div>
           </div>
           {/* END OF NEW TASK 4 */}
 
           {/* CSS LEARNING SECTION */}
-          <section className="mx-3 mt-15 xl:mx-20" data-aos="fade-up">
+          <section
+            className="mx-3 mt-15 xl:mx-20"
+            data-aos="fade-up"
+            id="task2"
+          >
             <div className="text-white mb-8">
               <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
                 <h2 className="text-3xl text-center lg:text-5xl">
@@ -1543,80 +1421,6 @@ const Navbar = () => {
                   Gaps: Full (rows + columns)
                 </p>
               </div>
-            </div>
-          </section>
-          {/* SUBMISSION INSTRUCTIONS */}
-          <section className="mx-3 mt-15 xl:mx-20" data-aos="fade-up">
-            <div className="text-white mb-5">
-              <h2 className="text-3xl text-center mb-3 lg:text-5xl">
-                Submission Instructions for 12th November
-              </h2>
-              <p className="text-center lg:text-2xl mb-8">
-                You'll be prompted to:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8">
-              <Card2Blue
-                titles="1. Upload to GitHub"
-                desp="Upload your project to GitHub using a repository (repo)."
-                iconFill="fa-brands"
-                iconCategory="fa-github"
-              />
-              <Card2Blue
-                titles="2. Publish Live"
-                desp="Publish your page live using GitHub Pages — so anyone can open it in a browser."
-                iconFill="fa-solid"
-                iconCategory="fa-globe"
-              />
-            </div>
-
-            <div className="mb-8">
-              <Card2Blue
-                titles="Your page will be evaluated based on:"
-                desp=" HTML semantics and structure •  Creativity and visual appeal •  Clean, readable CSS •  Proper linking between files (HTML ↔ CSS)"
-              />
-            </div>
-
-            <div className="mb-5">
-              <h3 className="text-white text-2xl text-center mb-5 lg:text-4xl">
-                Helpful Resources
-              </h3>
-              <p className="text-white text-center mb-5 lg:text-xl">
-                Use these tutorials from The Odin Project to guide you through
-                setup and deployment:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-              <a
-                href="https://www.theodinproject.com/lessons/foundations-setting-up-git"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:opacity-80 transition-opacity duration-300 cursor-pointer"
-              >
-                <Card2Blue
-                  titles="Setting up Git"
-                  desp="Learn how to install and configure Git for version control. Click here to open the tutorial →"
-                  iconFill="fa-brands"
-                  iconCategory="fa-git-alt"
-                  underlines={true}
-                />
-              </a>
-              <a
-                href="https://www.theodinproject.com/lessons/foundations-recipes#viewing-your-project-on-the-web"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:opacity-80 transition-opacity duration-300 cursor-pointer"
-              >
-                <Card2Blue
-                  titles="Viewing Your Project on the Web (GitHub Pages)"
-                  desp="Deploy your website live using GitHub Pages. Click here to open the tutorial →"
-                  iconFill="fa-solid"
-                  iconCategory="fa-rocket"
-                  underlines={true}
-                />
-              </a>
             </div>
           </section>
         </main>
