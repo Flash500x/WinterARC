@@ -354,7 +354,7 @@ const Navbar = () => {
                 iconCategory="fa-code"
               ></Cards>
               <Cards
-                head="Front-End "
+                head="Front-End"
                 des="If a website were a building, the front-end is everything the visitor experiences directly—walls, doors, lighting, furniture, signs, and elevator buttons. You’re crafting what users see, click, read, scroll, and type into, shaping every visible and interactive detail.
 
 "
