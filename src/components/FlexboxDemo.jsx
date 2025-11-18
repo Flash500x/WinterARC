@@ -7,23 +7,25 @@ const FlexboxDemo = () => {
   const [gap, setGap] = useState("10");
 
   return (
-    <div className="bg-black p-6 border-[#0a1929] border-2 rounded-lg">
+    <div className="bg-black p-6 border-[#0a1929] border-2 rounded-lg h-full flex flex-col">
       <h3 className="text-white text-2xl lg:text-3xl mb-4">
         Interactive Flexbox Playground
       </h3>
-      <p className="text-gray-300 mb-6">
+      <p className="text-gray-300 mb-6 text-sm lg:text-base">
         Adjust the controls below to see how Flexbox properties work in
         real-time
       </p>
 
       {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-6">
         <div>
-          <label className="text-white block mb-2">flex-direction</label>
+          <label className="text-white block mb-2 text-sm">
+            flex-direction
+          </label>
           <select
             value={flexDirection}
             onChange={(e) => setFlexDirection(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600"
+            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600 text-sm"
           >
             <option value="row">row</option>
             <option value="row-reverse">row-reverse</option>
@@ -33,11 +35,13 @@ const FlexboxDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">justify-content</label>
+          <label className="text-white block mb-2 text-sm">
+            justify-content
+          </label>
           <select
             value={justifyContent}
             onChange={(e) => setJustifyContent(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600"
+            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600 text-sm"
           >
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
@@ -49,11 +53,11 @@ const FlexboxDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">align-items</label>
+          <label className="text-white block mb-2 text-sm">align-items</label>
           <select
             value={alignItems}
             onChange={(e) => setAlignItems(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600"
+            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600 text-sm"
           >
             <option value="stretch">stretch</option>
             <option value="flex-start">flex-start</option>
@@ -64,7 +68,7 @@ const FlexboxDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">gap: {gap}px</label>
+          <label className="text-white block mb-2 text-sm">gap: {gap}px</label>
           <input
             type="range"
             min="0"
@@ -77,7 +81,7 @@ const FlexboxDemo = () => {
       </div>
 
       {/* Demo Container */}
-      <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 min-h-[300px]">
+      <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4 flex-grow overflow-hidden">
         <div
           style={{
             display: "flex",
@@ -85,28 +89,30 @@ const FlexboxDemo = () => {
             justifyContent: justifyContent,
             alignItems: alignItems,
             gap: `${gap}px`,
-            minHeight: "250px",
+            minHeight: "200px",
+            height: "100%",
             padding: "20px",
             backgroundColor: "#1a1a2e",
             borderRadius: "8px",
+            overflow: "auto",
           }}
         >
-          <div className="bg-blue-500 text-white p-4 rounded font-bold min-w-[80px] text-center">
+          <div className="bg-blue-500 text-white p-3 rounded font-bold min-w-[60px] text-center text-sm flex-shrink-0">
             Item 1
           </div>
-          <div className="bg-green-500 text-white p-4 rounded font-bold min-w-[80px] text-center">
+          <div className="bg-green-500 text-white p-3 rounded font-bold min-w-[60px] text-center text-sm flex-shrink-0">
             Item 2
           </div>
-          <div className="bg-purple-500 text-white p-4 rounded font-bold min-w-[80px] text-center">
+          <div className="bg-purple-500 text-white p-3 rounded font-bold min-w-[60px] text-center text-sm flex-shrink-0">
             Item 3
           </div>
         </div>
       </div>
 
       {/* Code Display */}
-      <div className="mt-4 bg-gray-900 p-4 rounded border border-gray-700">
-        <p className="text-gray-400 text-sm mb-2">Current CSS:</p>
-        <pre className="text-green-400 text-sm overflow-x-auto">
+      <div className="mt-auto bg-gray-900 p-3 rounded border border-gray-700">
+        <p className="text-gray-400 text-xs mb-2">Current CSS:</p>
+        <pre className="text-green-400 text-xs overflow-x-auto">
           {`.container {
   display: flex;
   flex-direction: ${flexDirection};
@@ -130,18 +136,20 @@ const GridDemo = () => {
   const itemCount = parseInt(columns) * parseInt(rows);
 
   return (
-    <div className="bg-black p-6 border-[#0a1929] border-2 rounded-lg">
+    <div className="bg-black p-6 border-[#0a1929] border-2 rounded-lg h-full flex flex-col">
       <h3 className="text-white text-2xl lg:text-3xl mb-4">
         Interactive Grid Playground
       </h3>
-      <p className="text-gray-300 mb-6">
+      <p className="text-gray-300 mb-6 text-sm lg:text-base">
         Adjust the controls below to see how Grid properties work in real-time
       </p>
 
       {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-6">
         <div>
-          <label className="text-white block mb-2">Columns: {columns}</label>
+          <label className="text-white block mb-2 text-sm">
+            Columns: {columns}
+          </label>
           <input
             type="range"
             min="1"
@@ -153,7 +161,7 @@ const GridDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">Rows: {rows}</label>
+          <label className="text-white block mb-2 text-sm">Rows: {rows}</label>
           <input
             type="range"
             min="1"
@@ -165,7 +173,7 @@ const GridDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">gap: {gap}px</label>
+          <label className="text-white block mb-2 text-sm">gap: {gap}px</label>
           <input
             type="range"
             min="0"
@@ -177,11 +185,11 @@ const GridDemo = () => {
         </div>
 
         <div>
-          <label className="text-white block mb-2">justify-items</label>
+          <label className="text-white block mb-2 text-sm">justify-items</label>
           <select
             value={justifyItems}
             onChange={(e) => setJustifyItems(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600"
+            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600 text-sm"
           >
             <option value="stretch">stretch</option>
             <option value="start">start</option>
@@ -190,12 +198,12 @@ const GridDemo = () => {
           </select>
         </div>
 
-        <div>
-          <label className="text-white block mb-2">align-items</label>
+        <div className="lg:col-span-2">
+          <label className="text-white block mb-2 text-sm">align-items</label>
           <select
             value={alignItems}
             onChange={(e) => setAlignItems(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600"
+            className="w-full bg-gray-800 text-white p-2 rounded border border-gray-600 text-sm"
           >
             <option value="stretch">stretch</option>
             <option value="start">start</option>
@@ -206,25 +214,26 @@ const GridDemo = () => {
       </div>
 
       {/* Demo Container */}
-      <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+      <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4 flex-grow">
         <div
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
-            gridTemplateRows: `repeat(${rows}, 100px)`,
+            gridTemplateRows: `repeat(${rows}, 80px)`,
             gap: `${gap}px`,
             justifyItems: justifyItems,
             alignItems: alignItems,
             padding: "20px",
             backgroundColor: "#1a1a2e",
             borderRadius: "8px",
+            height: "100%",
           }}
         >
           {Array.from({ length: itemCount }, (_, i) => (
             <div
               key={i}
-              className="bg-gradient-to-br from-cyan-500 to-blue-500 text-white p-4 rounded font-bold flex items-center justify-center"
-              style={{ minWidth: "60px", minHeight: "60px" }}
+              className="bg-gradient-to-br from-cyan-500 to-blue-500 text-white p-2 rounded font-bold flex items-center justify-center text-sm"
+              style={{ minWidth: "50px", minHeight: "50px" }}
             >
               {i + 1}
             </div>
@@ -233,13 +242,13 @@ const GridDemo = () => {
       </div>
 
       {/* Code Display */}
-      <div className="mt-4 bg-gray-900 p-4 rounded border border-gray-700">
-        <p className="text-gray-400 text-sm mb-2">Current CSS:</p>
-        <pre className="text-green-400 text-sm overflow-x-auto">
+      <div className="mt-auto bg-gray-900 p-3 rounded border border-gray-700">
+        <p className="text-gray-400 text-xs mb-2">Current CSS:</p>
+        <pre className="text-green-400 text-xs overflow-x-auto">
           {`.container {
   display: grid;
   grid-template-columns: repeat(${columns}, 1fr);
-  grid-template-rows: repeat(${rows}, 100px);
+  grid-template-rows: repeat(${rows}, 80px);
   gap: ${gap}px;
   justify-items: ${justifyItems};
   align-items: ${alignItems};
@@ -259,19 +268,21 @@ const FlexboxGridDemos = () => {
             Try It Yourself: Interactive Demos
           </h2>
         </div>
-        <p className="text-center text-gray-300 lg:text-xl mb-8">
-          The best way to learn Flexbox and Grid is by experimenting. Use these
-          interactive playgrounds to see how each property affects the layout in
-          real-time.
+        <p className="text-center text-gray-300 lg:text-xl mb-2">
+          The best way to learn Flexbox and Grid is by experimenting.
+        </p>
+        <p className="text-center text-gray-300 text-sm lg:text-base">
+          Use these interactive playgrounds to see how each property affects the
+          layout in real-time.
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
         <FlexboxDemo />
         <GridDemo />
       </div>
 
-      <div className="mt-8 bg-black p-6 border-[#0a1929] border-2 rounded-lg">
+      <div className="bg-black p-6 border-[#0a1929] border-2 rounded-lg">
         <div className="flex flex-row justify-start items-center gap-1.5 mb-3">
           <i className="fa-solid fa-lightbulb text-yellow-400 text-2xl"></i>
           <p className="text-white text-2xl lg:text-3xl">Pro Tip</p>

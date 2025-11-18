@@ -1403,7 +1403,7 @@ const Navbar = () => {
 
             {/* Flexbox vs Grid */}
             <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-col justify-center items-center gap-1.5">
+              <div className="px-1 flex flex-col justify-center items-center gap-1.5">
                 <FlexboxGridDemos />
               </div>
             </div>
