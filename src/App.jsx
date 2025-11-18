@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Cards from "./components/Cards";
-
+import FlexboxGridDemos from "./components/FlexboxDemo";
 const Card2 = ({ titles, desp, iconFill, iconCategory }) => {
   return (
     <div className="bg-black p-3 border-[#092b24] border-2">
@@ -784,6 +784,16 @@ const Navbar = () => {
                 bgColor="#0b1929"
               />
             </div>
+
+            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+              <Cards
+                head="Task 3: CSS Learning Module"
+                des="Status: Completed"
+                iconCategory="fa-circle"
+                iconFill="fa-solid"
+                bgColor="#0b1929"
+              />
+            </div>
           </div>
           {/* END OF NEW TASK 4 */}
 
@@ -1393,10 +1403,8 @@ const Navbar = () => {
 
             {/* Flexbox vs Grid */}
             <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  Flexbox vs Grid
-                </h3>
+              <div className="bg-[#0a3931] p-3 flex flex-col justify-center items-center gap-1.5">
+                <FlexboxGridDemos />
               </div>
             </div>
 
@@ -1424,7 +1432,288 @@ const Navbar = () => {
             </div>
           </section>
         </main>
+        {/* TASK 4 SECTION */}
+        <section className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
+          <div className="text-white mb-8">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+              <h2 className="text-3xl text-center lg:text-5xl">
+                Task 4: Build an Expanded Personal Showcase Webpage
+              </h2>
+            </div>
+          </div>
 
+          {/* Task Overview */}
+          <div className="mb-8" data-aos="fade-up">
+            <Card2Blue
+              titles="Goal"
+              desp="Create a one-page personal showcase website that goes beyond a basic introduction by visually organizing your interests, achievements, and creative work using Flexbox and Grid. Your page should feel like a small portfolio — a space that reflects who you are, what you enjoy, and what you're proud of."
+            />
+          </div>
+
+          {/* Expected Outcome */}
+          <div className="mb-5" data-aos="fade-up">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+              <h3 className="text-white text-2xl text-center lg:text-4xl">
+                Expected Outcome
+              </h3>
+            </div>
+          </div>
+
+          <div
+            className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+            data-aos="fade-up"
+          >
+            <Card2Blue
+              titles="Header Section"
+              desp="A header with your name and a personalized theme (colors, fonts, or background images)."
+            />
+            <Card2Blue
+              titles="Profile Section"
+              desp="A profile section arranged using Flexbox (profile picture + short bio side by side or stacked on mobile)."
+            />
+            <Card2Blue
+              titles="Showcase Grid"
+              desp="A Showcase Grid using CSS Grid that displays your content — drawings, poems, photos, certificates, or any creative work."
+            />
+            <Card2Blue
+              titles="Hobbies/Interests"
+              desp="A section highlighting your hobbies/interests organized using Flexbox or Grid cards."
+            />
+            <Card2Blue
+              titles="Gallery/Works"
+              desp="A 'Works / Achievements / Gallery' area where you embed images, text snippets, or links to your creations."
+            />
+            <Card2Blue
+              titles="Footer"
+              desp="A footer with a quote, message, or social link. A theme that represents your personality (anime, minimal aesthetic, dark mode, colorful, etc.)."
+            />
+          </div>
+
+          {/* Step by Step */}
+          <div className="mb-5 mt-8" data-aos="fade-up">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+              <h3 className="text-white text-2xl text-center lg:text-4xl">
+                Step-by-Step Guide
+              </h3>
+            </div>
+          </div>
+
+          <div className="mb-8" data-aos="fade-up">
+            <Card2Blue
+              titles="Structure (HTML)"
+              desp="Make index.html and include: <header> → Your name + tagline | <section class='intro'> → Profile picture + bio text (Flexbox recommended) | <section class='showcase-grid'> → A Grid layout for your work/creations | <section class='interests'> → A list or cards of hobbies/interests | <footer> → Quote/social link. Tip: Break your page into clear sections and wrap each in <section> tags."
+              underlines={true}
+            />
+          </div>
+
+          <div className="mb-8" data-aos="fade-up">
+            <Card2Blue
+              titles="Styling (CSS)"
+              desp="Create your style.css. This is where your creativity shows. You should: Use Flexbox for the introduction section (image + text alignment) | Use CSS Grid to create a gallery or showcase area with multiple columns | Give your webpage a theme (anime, minimal, aesthetic, gamer, etc.) | Use border-radius: 50% for circular images | Center sections using margin: auto and control sizes with max-width | Add consistent spacing with padding, gap, and line-height | Make hover effects on images or cards (e.g., zoom on hover)."
+              underlines={true}
+            />
+          </div>
+
+          {/* Requirements Checklist */}
+          <div className="mb-5 mt-8" data-aos="fade-up">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+              <h3 className="text-white text-2xl text-center lg:text-4xl">
+                Requirements Checklist
+              </h3>
+            </div>
+          </div>
+
+          <div
+            className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
+            data-aos="fade-up"
+          >
+            <Card2Blue
+              titles="Flexbox Usage"
+              desp="At least one section must use Flexbox (profile intro, navigation, or interest cards)."
+            />
+            <Card2Blue
+              titles="Grid Layout"
+              desp="At least one section must use CSS Grid (gallery, showcase, or achievements grid)."
+            />
+            <Card2Blue
+              titles="Semantic HTML"
+              desp="Use proper tags: <header>, <section>, <footer>, <h1>, <p>, etc."
+            />
+            <Card2Blue
+              titles="Visual Theme"
+              desp="Your page should have a consistent color scheme and style that matches your personality."
+            />
+            <Card2Blue
+              titles="Responsive Elements"
+              desp="At least try to make one section adapt to different screen sizes (even if basic)."
+            />
+            <Card2Blue
+              titles="Creative Content"
+              desp="Include real or placeholder content (images, text, links) that represents you."
+            />
+          </div>
+
+          {/* Submission */}
+          <div className="mb-5 mt-8" data-aos="fade-up">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+              <h3 className="text-white text-2xl text-center lg:text-4xl">
+                Submission & Tips
+              </h3>
+            </div>
+          </div>
+
+          <div
+            className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
+            data-aos="fade-up"
+          >
+            <Card2Blue
+              titles="How to Submit"
+              desp="Push your index.html and style.css to GitHub. Deploy your page using GitHub Pages or Netlify. Submit the live link + GitHub repo link."
+            />
+            <Card2Blue
+              titles="Pro Tips"
+              desp="Start simple, then enhance. Use placeholder images from unsplash.com or picsum.photos. Comment your CSS so you remember what each section does. Test your page by resizing the browser window. Have fun with it — this is YOUR space!"
+            />
+          </div>
+
+          {/* Resources */}
+          {/* Resources */}
+          <div className="mb-8" data-aos="fade-up">
+            <div className="bg-black p-3 border-[#0a1929] border-2">
+              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
+                <p className="text-white text-2xl lg:text-3xl">
+                  Resources to Help You
+                </p>
+              </div>
+              <div className="text-base text-white lg:text-2xl">
+                <p className="mb-2">
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    MDN Flexbox Guide
+                  </a>
+                </p>
+                <p className="mb-2">
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    MDN Grid Guide
+                  </a>
+                </p>
+                <p className="mb-2">
+                  <a
+                    href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    CSS Tricks Flexbox
+                  </a>
+                </p>
+                <p className="mb-2">
+                  <a
+                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    CSS Tricks Grid
+                  </a>
+                </p>
+                <p>
+                  Free Images:{" "}
+                  <a
+                    href="https://unsplash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    unsplash.com
+                  </a>
+                  ,{" "}
+                  <a
+                    href="https://pexels.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-400"
+                  >
+                    pexels.com
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Final Note */}
+          <div className="mb-8" data-aos="fade-up">
+            <div className="bg-black p-3 border-[#0a1929] border-2">
+              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
+                <p className="text-white text-2xl lg:text-3xl">Final Note</p>
+              </div>
+              <p className="text-base text-white lg:text-2xl">
+                This task is not about perfection. It's about using what you've
+                learned (Flexbox, Grid, Box Model, Selectors) in a real project.
+                Build something that feels like yours. Make mistakes, Google
+                things, break your layout and fix it. That's how you actually
+                learn. Good luck!
+              </p>
+            </div>
+          </div>
+        </section>
+        {/* SUBMISSION SECTION */}
+        <section className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
+          <div className="text-white mb-8">
+            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+              <h2 className="text-3xl text-center lg:text-5xl">
+                Submission Instructions
+              </h2>
+            </div>
+          </div>
+          <div className="mb-8" data-aos="fade-up">
+            <Card2Blue titles="Deadline" desp="23rd November, 10pm" />
+          </div>
+          <div className="mb-8" data-aos="fade-up">
+            <Card2Blue
+              titles="Steps"
+              desp="After completing the task above, you’ll be prompted to: 1. Upload your project to GitHub using a repository (repo). 2. Publish your page live using GitHub Pages — so anyone can open it in a browser. 3. Upload the Github Pages link to a Google Form which will be distributed on the same day."
+            />
+          </div>
+          <div className="mb-8" data-aos="fade-up">
+            <div className="bg-black p-3 border-[#0a1929] border-2">
+              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
+                <p className="text-white text-2xl lg:text-3xl">Tutorials</p>
+              </div>
+              <div className="text-base text-white lg:text-2xl">
+                <p className="mb-2">
+                  <a
+                    href="https://www.theodinproject.com/lessons/foundations-setting-up-git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-[#667eea] transition duration-300"
+                  >
+                    Setting up Git and Github
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href="https://www.theodinproject.com/lessons/foundations-recipes#viewing-your-project-on-the-web"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-[#667eea] transition duration-300"
+                  >
+                    Viewing Your Project on the Web (GitHub Pages)
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
         <Box
           sx={{ position: "relative", zIndex: 10, mt: 8 }}
           data-aos="fade-up"
