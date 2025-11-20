@@ -387,13 +387,13 @@ const Navbar = () => {
                 data-aos="fade-up"
               >
                 <ScrollLink
-                  to="task2"
+                  to="task4"
                   smooth={true}
                   duration={3000}
                   offset={-50}
-                  className="border border-white bg-white p-2 text-center cursor-pointer lg:p-5 hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out  "
+                  className="border border-white bg-white text-black p-2 text-center cursor-pointer lg:p-5 hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out  "
                 >
-                  CSS
+                  Task 4
                 </ScrollLink>
 
                 <a
@@ -1433,7 +1433,7 @@ const Navbar = () => {
           </section>
         </main>
         {/* TASK 4 SECTION */}
-        <section className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
+        <section id="task4" className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
           <div className="text-white mb-8">
             <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
               <h2 className="text-3xl text-center lg:text-5xl">
