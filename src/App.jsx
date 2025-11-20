@@ -1433,7 +1433,11 @@ const Navbar = () => {
           </section>
         </main>
         {/* TASK 4 SECTION */}
-        <section id="task4" className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
+        <section
+          id="task4"
+          className="mx-3 mt-15 xl:mx-20 mb-15"
+          data-aos="fade-up"
+        >
           <div className="text-white mb-8">
             <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
               <h2 className="text-3xl text-center lg:text-5xl">
