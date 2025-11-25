@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import Snowfall from "react-snowfall";
-import { Box, Typography, Link, Divider, Stack } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Link,
+  Divider,
+  Stack,
+  Tabs,
+  Tab,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Link as ScrollLink } from "react-scroll";
 import { useMediaQuery } from "react-responsive";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Cards from "./components/Cards";
 import FlexboxGridDemos from "./components/FlexboxDemo";
+
 const Card2 = ({ titles, desp, iconFill, iconCategory }) => {
   return (
     <div className="bg-black p-3 border-[#092b24] border-2">
@@ -24,6 +31,7 @@ const Card2 = ({ titles, desp, iconFill, iconCategory }) => {
     </div>
   );
 };
+
 const BoxModelLayer = ({ label, size, color, children }) => (
   <div
     className="absolute inset-0 flex items-center justify-center"
@@ -115,17 +123,23 @@ const BoxModel = ({
     </div>
   );
 };
+
 const Card2Blue = ({
   titles,
   desp,
   iconFill,
   iconCategory,
   underlines = false, // default: no underline
+  children,
 }) => {
   return (
-    <div className="bg-black p-3 border-[#0a1929] border-2 ">
+    <div className="bg-black p-3 border-[#0a1929] border-2 h-full">
       <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
-        <i className={`${iconFill} ${iconCategory} text-white text-2xl`}></i>
+        {iconCategory && (
+          <i
+            className={`${iconFill} ${iconCategory} text-white text-2xl mr-2`}
+          ></i>
+        )}
         <p
           className={`text-white text-2xl lg:text-3xl ${
             underlines ? "underline underline-offset-4" : ""
@@ -134,7 +148,10 @@ const Card2Blue = ({
           {titles}
         </p>
       </div>
-      <p className="text-base text-white lg:text-2xl">{desp}</p>
+      <div className="text-base text-white lg:text-2xl">
+        {desp}
+        {children}
+      </div>
     </div>
   );
 };
@@ -142,6 +159,32 @@ const Card2Blue = ({
 const theme = createTheme({
   typography: {
     fontFamily: "'Wotfard', sans-serif",
+  },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          fontWeight: "bold",
+          fontSize: "1rem",
+          marginRight: "10px",
+          marginLeft: "10px",
+          borderRadius: "50px", // Rounded button shape
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          color: "rgba(255, 255, 255, 0.7)",
+          transition: "all 0.3s ease",
+          "&.Mui-selected": {
+            color: "#000", // Black text on active
+            backgroundColor: "#fff", // White background on active
+            border: "1px solid #fff",
+          },
+          "&:hover": {
+            border: "1px solid #fff",
+            color: "#fff",
+          },
+        },
+      },
+    },
   },
 });
 
@@ -281,6 +324,12 @@ const FooterBar = () => {
 
 const Navbar = () => {
   const isMobile = useMediaQuery({ maxWidth: 640 });
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -387,13 +436,13 @@ const Navbar = () => {
                 data-aos="fade-up"
               >
                 <ScrollLink
-                  to="task4"
+                  to="tasks"
                   smooth={true}
                   duration={3000}
                   offset={-50}
                   className="border border-white bg-white text-black p-2 text-center cursor-pointer lg:p-5 hover:border-[#0a3931] hover:bg-[#0a3931] hover:text-white transition duration-300 ease-in-out  "
                 >
-                  Task 4
+                  Tasks
                 </ScrollLink>
 
                 <a
@@ -408,6 +457,7 @@ const Navbar = () => {
             </div>
           </section>
           <div className="h-[2px] bg-gradient-to-b from-transparent to-black"></div>
+
           <section className=" text-white bg-black">
             <div className="mb-5 ">
               <h2
@@ -703,9 +753,7 @@ const Navbar = () => {
 
               <Card2
                 titles="Learn <img> and <a>"
-                desp="Then you can build: A portfolio page with a gallery.
-
-"
+                desp="Then you can build: A portfolio page with a gallery."
                 iconFill="fa-solid"
                 iconCategory="fa-i-cursor"
               ></Card2>
@@ -713,9 +761,7 @@ const Navbar = () => {
               <div className="lg:col-span-2 xl:col-span-1">
                 <Card2
                   titles="Learn <form>, <input>, & <button>"
-                  desp="Then you can build something real — a working login or contact form that sends and processes data.
-
-"
+                  desp="Then you can build something real — a working login or contact form that sends and processes data."
                   iconFill="fa-solid"
                   iconCategory="fa-i-cursor"
                 ></Card2>
@@ -723,26 +769,17 @@ const Navbar = () => {
 
               <Card2
                 titles="Learn Flexbox & Grid"
-                desp="Then you can build: Any modern landing page layout you see.
-
-
-
-"
+                desp="Then you can build: Any modern landing page layout you see."
                 iconFill="fa-solid"
                 iconCategory="fa-layer-group"
               ></Card2>
-              <div className="xl:col-span-2">
-                <Card2
-                  titles="Learn Media Queries"
-                  desp="Then you can build: Sites that look incredible on a phone, tablet, and desktop. Media queries let you create responsive designs that adapt beautifully to any screen size..
-
-
-
-"
-                  iconFill="fa-solid"
-                  iconCategory="fa-clone"
-                ></Card2>
-              </div>
+              {/* Removed xl:col-span-2 wrapper to make it xl:col-span-1 (the default) */}
+              <Card2
+                titles="Learn Media Queries"
+                desp="Then you can build: Sites that look incredible on a phone, tablet, and desktop. Media queries let you create responsive designs that adapt beautifully to any screen size.."
+                iconFill="fa-solid"
+                iconCategory="fa-clone"
+              ></Card2>
             </div>
           </section>
 
@@ -755,7 +792,7 @@ const Navbar = () => {
                 Tasks
               </h2>
               <p
-                className="text-center lg:text-2xl xl:mx-50"
+                className="text-center lg:text-2xl xl:mx-50 mb-5"
                 data-aos="fade-up"
               >
                 The tasks below are meant to give you motion, not perfection.
@@ -763,967 +800,1645 @@ const Navbar = () => {
                 break things, fix them. That is the point.
               </p>
             </div>
-          </section>
-          {/* NEW TASK 4 */}
-          <div className="mt-3">
-            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
-              <Cards
-                head="Task 1: HTML and CSS Fundamentals Quiz"
-                des="Status: Completed"
-                iconCategory="fa-circle"
-                iconFill="fa-solid"
-                bgColor="#0b1929"
-              />
-            </div>
-            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
-              <Cards
-                head="Task 2: Build a Simple 'About Me' Webpage"
-                des="Status: Completed"
-                iconCategory="fa-circle"
-                iconFill="fa-solid"
-                bgColor="#0b1929"
-              />
-            </div>
 
-            <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
-              <Cards
-                head="Task 3: CSS Learning Module"
-                des="Status: Completed"
-                iconCategory="fa-circle"
-                iconFill="fa-solid"
-                bgColor="#0b1929"
-              />
-            </div>
-          </div>
-          {/* END OF NEW TASK 4 */}
-
-          {/* CSS LEARNING SECTION */}
-          <section
-            className="mx-3 mt-15 xl:mx-20"
-            data-aos="fade-up"
-            id="task2"
-          >
-            <div className="text-white mb-8">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
-                <h2 className="text-3xl text-center lg:text-5xl">
-                  Introduction to CSS
-                </h2>
-              </div>
-            </div>
-
-            {/* What is CSS */}
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  What is CSS?
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  CSS (Cascading Style Sheets) is a style sheet language used to
-                  describe the appearance and formatting of a webpage written in
-                  HTML. It helps control text color, font, and size; backgrounds
-                  and borders; spacing and layout of elements; and how pages
-                  look on different devices (responsive design). In short, HTML
-                  is the structure, and CSS is the style.
-                </p>
-              </div>
-            </div>
-
-            {/* Why Use CSS */}
-            <div className="mb-8" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Why Use CSS?
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Before CSS, all styling was done directly inside HTML tags,
-                  which made web pages messy and hard to maintain. CSS separates
-                  content (HTML) from presentation (style). Advantages: Easier
-                  to maintain and update styles • Cleaner and more readable code
-                  • Same stylesheet can be applied to multiple pages • Better
-                  control over layout and design • Improves page loading speed.
-                </p>
-              </div>
-            </div>
-
-            {/* Types of CSS */}
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  Types of CSS
-                </h3>
-              </div>
-            </div>
-
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-3 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Inline CSS
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Written inside the HTML tag using the style attribute.
-                  Example: &lt;p style="color: red;"&gt;Text&lt;/p&gt;. Use
-                  case: Quick styling for a single element.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Internal CSS
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Written inside a &lt;style&gt; tag in the &lt;head&gt; section
-                  of the HTML page. Used for styling a single page.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  External CSS
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Written in a separate .css file and linked to the HTML using
-                  &lt;link rel="stylesheet" href="style.css"&gt;. Used for
-                  multiple pages with the same design. ✅ Best Practice for
-                  large projects.
-                </p>
-              </div>
-            </div>
-
-            {/* CSS Syntax */}
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  CSS Syntax
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  CSS works through rules. Each rule has two main parts:
-                  Selector (the HTML element you want to style) and
-                  Property-Value pairs (the style attributes you want to
-                  change). Format: selector &#123; property: value; &#125;
-                </p>
-              </div>
-            </div>
-
-            {/* CSS Selectors */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  CSS Selectors
-                </h3>
-              </div>
-              <p className="text-white text-center mb-5 lg:text-xl">
-                Selectors decide which elements the styles apply to
-              </p>
-            </div>
-
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Element Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles all elements of that type. Example: p &#123; &#125;
-                  styles all &lt;p&gt; elements.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Class Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles all elements with that class. Example: .note &#123;
-                  &#125; styles all elements with class="note".
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  ID Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles the element with that ID. Example: #header &#123;
-                  &#125; styles the element with id="header".
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Group Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles multiple elements at once. Example: h1, h2, h3 &#123;
-                  &#125; styles all heading elements.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Universal Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles everything on the page. Example: * &#123; &#125;
-                  applies to all elements.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Descendant Selector
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Styles nested elements. Example: div p &#123; &#125; styles
-                  &lt;p&gt; only when inside &lt;div&gt;.
-                </p>
-              </div>
-            </div>
-
-            {/* CSS Box Model */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  The CSS Box Model
-                </h3>
-              </div>
-            </div>
-
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  What is the Box Model?
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Every element on a webpage is a rectangular box. The CSS Box
-                  Model describes how space is used around and inside elements.
-                  Each box has 4 layers (from inside to outside): Content (text
-                  or image inside) → Padding (space between content and border)
-                  → Border (line surrounding padding and content) → Margin
-                  (space outside the border).
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-8" data-aos="fade-up">
-              <BoxModel
-                margin={27}
-                border={40}
-                padding={23}
-                width={50}
-                height={50}
-                colors={{
-                  margin: "#F8B88B",
-                  border: "#F7DC6F",
-                  padding: "#98D8C8",
-                  content: "#4A90E2",
+            {/* TAB SYSTEM */}
+            <Box sx={{ width: "100%", typography: "body1", mb: 5 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
                 }}
-              />
-            </div>
+              >
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  textColor="inherit"
+                  // Remove indicator line
+                  TabIndicatorProps={{
+                    style: { display: "none" },
+                  }}
+                  aria-label="tasks and css tabs"
+                  sx={{
+                    "& .MuiTabs-flexContainer": {
+                      justifyContent: "center",
+                    },
+                  }}
+                >
+                  <Tab label="Tasks" />
+                  <Tab label="CSS" />
+                </Tabs>
+              </Box>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Margin</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Outer spacing around the element. Example: margin: 10px;
-                  creates space outside the border.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Padding</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Inner spacing between content and border. Example: padding:
-                  20px; creates space inside the border.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Border</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Edge outline around the element. Example: border: 2px solid
-                  red; creates a red line around the element.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Width & Height
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Controls the inner content size. Example: width: 300px;
-                  height: 200px; sets the content dimensions.
-                </p>
-              </div>
-              <div className="lg:col-span-2 xl:col-span-2 bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Total Element Width Calculation
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Total width = width + padding-left + padding-right +
-                  border-left + border-right + margin-left + margin-right.
-                  Example: For width: 200px, padding: 20px, border: 5px, margin:
-                  10px → Total = 200 + 20 + 20 + 5 + 5 + 10 + 10 = 270px
-                </p>
-              </div>
-            </div>
+              {/* TAB 1: TASKS */}
+              {tabValue === 0 && (
+                <div className="mt-3">
+                  <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+                    <Cards
+                      head="Task 1: HTML and CSS Fundamentals Quiz"
+                      des="Status: Completed"
+                      iconCategory="fa-circle"
+                      iconFill="fa-solid"
+                      bgColor="#0b1929"
+                    />
+                  </div>
+                  <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+                    <Cards
+                      head="Task 2: Build a Simple 'About Me' Webpage"
+                      des="Status: Completed"
+                      iconCategory="fa-circle"
+                      iconFill="fa-solid"
+                      bgColor="#0b1929"
+                    />
+                  </div>
 
-            {/* Display Types */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  CSS Display and Positioning
-                </h3>
-              </div>
-              <p className="text-white text-center mb-5 lg:text-xl">
-                Before learning Flexbox and Grid, understand display types
-              </p>
-            </div>
+                  <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+                    <Cards
+                      head="Task 3: CSS Learning Module"
+                      des="Status: Completed"
+                      iconCategory="fa-circle"
+                      iconFill="fa-solid"
+                      bgColor="#0b1929"
+                    />
+                  </div>
+                  <div className="mb-3 xl:mx-20 mx-3" data-aos="fade-up">
+                    <Cards
+                      head="Task 4: Build an Expanded Personal Showcase Webpage"
+                      des="Status: Completed"
+                      iconCategory="fa-circle"
+                      iconFill="fa-solid"
+                      bgColor="#0b1929"
+                    />
+                  </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Block</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Takes full width, starts on a new line. Examples: &lt;div&gt;,
-                  &lt;p&gt;, &lt;h1&gt;
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Inline</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Takes only as much width as needed. Examples: &lt;span&gt;,
-                  &lt;a&gt;
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Inline-Block
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Behaves like inline but allows width and height to be set.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">None</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Hides the element completely from the page.
-                </p>
-              </div>
-            </div>
+                  {/* TASK 5 - NEW CONTENT */}
+                  <div className="mx-3 xl:mx-20 mt-10 mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+                      <h2 className="text-2xl text-center lg:text-3xl font-bold text-white">
+                        Task 5: Make a LinkedIn Profile
+                      </h2>
+                    </div>
+                  </div>
 
-            {/* Flexbox */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  CSS Flexbox (Flexible Box Layout)
-                </h3>
-              </div>
-            </div>
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:mx-20 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <Card2Blue
+                      titles="1. Profile Photo"
+                      desp="Choose a photo where you look confident and approachable. Good light, clear background, simple smile. Nothing fancy — just you looking neat."
+                      iconCategory="fa-image"
+                      iconFill="fa-regular"
+                    />
+                    <Card2Blue
+                      titles="2. Banner"
+                      desp="Use a clean image that reflects who you are. For example, if you're into game development: 'Unity • C# • 2D/3D Games'. This quickly tells people what you do."
+                      iconCategory="fa-image"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="3. Headline"
+                      desp="Tell people what you do and what you’re aiming for. Example: Unity Game Developer , C# | 2D/3D, Aspiring Gameplay Programmer. Short, neat, clear."
+                      iconCategory="fa-heading"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="4. About Section"
+                      desp="Write like you’re talking to a person. Example: 'I'm a passionate Unity game developer who loves building interactive 2D/3D games. I'm comfortable with C#, UI/UX, and creating small gameplay systems. I'm always learning and experimenting with new ideas. My goal is to grow into a strong gameplay programmer.' This makes you sound real, not robotic."
+                      iconCategory="fa-align-left"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="5. Experience"
+                      desp="Even if you're a student, add: Intern role, Club role, Volunteering, Any event or project work. Write what you actually did, in short points."
+                      iconCategory="fa-briefcase"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="6. Education"
+                      desp="Add your college, course, and year. If you're in any clubs/communities, mention them too."
+                      iconCategory="fa-graduation-cap"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="7. Skills"
+                      desp="Add skills you actually use or are learning: Unity, C#, Gameplay Programming, UI/UX, Figma, Python, Front-End Basics. Put your most important skills at the top."
+                      iconCategory="fa-list"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="8. Projects"
+                      desp="Add the projects you’re proud of. Keep it simple: What the project is, What you built, Tools used, GitHub link. People love seeing real work."
+                      iconCategory="fa-diagram-project"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="9. Certifications"
+                      desp="Upload certificates from: Courses you do, Coursera programs. These add trust to your profile."
+                      iconCategory="fa-certificate"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="10. Organizations"
+                      desp="If you're part of MuLearn, KES, or any community, add them. It shows you're active and involved."
+                      iconCategory="fa-users"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="11. Featured Section"
+                      desp="Pin your best work at the top: Your resume, GitHub projects, Game demo videos. This is like your 'showcase'."
+                      iconCategory="fa-star"
+                      iconFill="fa-solid"
+                    />
+                    <Card2Blue
+                      titles="12. Follow People"
+                      desp="Follow: Developers, Designers, Recruiters, Tech creators. This improves your feed and helps your profile reach more people."
+                      iconCategory="fa-user-plus"
+                      iconFill="fa-solid"
+                    />
+                    <div className="lg:col-span-full">
+                      <Card2Blue
+                        titles="13. Upload Resume"
+                        desp="Add your resume in the Featured section so anyone visiting your profile can quickly see your work."
+                        iconCategory="fa-file-pdf"
+                        iconFill="fa-solid"
+                      />
+                    </div>
+                  </div>
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  What is Flexbox?
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Flexbox is a layout system designed to arrange items in one
-                  dimension — either row (horizontal) or column (vertical). It's
-                  perfect for navigation bars, cards, and responsive layouts. To
-                  enable: display: flex; — All child elements now line up
-                  horizontally by default.
-                </p>
-              </div>
-            </div>
+                  {/* Resume Breakdown */}
+                  <div className="mx-1 xl:mx-20 mb-8" data-aos="fade-up">
+                    <Card2Blue
+                      titles="14. Make a Resume"
+                      desp="Structure your resume with these key sections:"
+                      iconCategory="fa-file-lines"
+                      iconFill="fa-regular"
+                    >
+                      <ul className="list-disc ml-5 mt-2 space-y-2 text-sm lg:text-xl">
+                        <li>
+                          <strong>Summary:</strong> A motivated Unity game
+                          developer learning C# and building small 2D/3D
+                          projects.
+                        </li>
+                        <li>
+                          <strong>Skills:</strong> Unity, C#, UI/UX, Figma,
+                          Python
+                        </li>
+                        <li>
+                          <strong>Projects:</strong> 2D Platformer Game — Built
+                          movement, jump, and collectibles using Unity & C#.
+                        </li>
+                        <li>
+                          <strong>Experience:</strong> Game Dev Volunteer –
+                          MuLearn. Helped students learn basics of Unity.
+                        </li>
+                        <li>
+                          <strong>Education:</strong> B.Tech (2nd Year), XYZ
+                          College
+                        </li>
+                        <li>
+                          <strong>Certifications:</strong> Unity Essentials
+                          Course – Unity Learn
+                        </li>
+                        <li>
+                          <strong>Achievements:</strong> Completed 5 Unity mini
+                          projects.
+                        </li>
+                      </ul>
+                    </Card2Blue>
+                  </div>
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h4 className="text-white text-xl text-center lg:text-3xl">
-                  Flex Container Properties
-                </h4>
-              </div>
-            </div>
+                  {/* Resources */}
+                  <div className="mx-3 xl:mx-20 mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Resources
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        <a
+                          href="https://www.linkedin.com/business/sales/blog/profile-best-practices/17-steps-to-a-better-linkedin-profile-in-2017"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          12 profile features you should check and update for
+                          2025
+                        </a>
+                        <a
+                          href="https://magicpost.in/blog/how-to-create-a-linkedin-profile-step-by-step"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          How to set up your LinkedIn profile (Step by Step)
+                        </a>
+                        <a
+                          href="https://blog.hubspot.com/marketing/linkedin-profile-perfection-cheat-sheet"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          Complete LinkedIn Playbook - Craft the Perfect Profile
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  flex-direction
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Direction of items. Values: row (horizontal), column
-                  (vertical), row-reverse, column-reverse
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  justify-content
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Horizontal alignment. Values: center, flex-start, flex-end,
-                  space-between, space-around, space-evenly
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  align-items
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Vertical alignment. Values: center, flex-start, flex-end,
-                  stretch, baseline
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  flex-wrap
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Allows wrapping onto multiple lines. Values: nowrap, wrap,
-                  wrap-reverse
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">gap</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Space between flex items. Example: gap: 10px; creates spacing
-                  between all items.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Centering with Flexbox
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Perfect centering: display: flex; justify-content: center;
-                  align-items: center; — Centers items both vertically and
-                  horizontally.
-                </p>
-              </div>
-            </div>
+                  {/* Video Tutorials */}
+                  <div className="mx-3 xl:mx-20 mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Video Tutorials
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        <a
+                          href="https://www.youtube.com/watch?v=AJocoZEV7ew"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          Key elements of an optimized LinkedIn profile
+                        </a>
+                        <a
+                          href="https://www.youtube.com/watch?v=j2YA_TScR-E"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          Unlock the full potential of your professional online
+                          identity
+                        </a>
+                        <a
+                          href="https://www.youtube.com/watch?v=lzuiuRgwwrc"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#667eea] hover:underline"
+                        >
+                          Create a LinkedIn Profile in 2024 | For College
+                          Students
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h4 className="text-white text-xl text-center lg:text-3xl">
-                  Flex Item Properties
-                </h4>
-              </div>
-            </div>
+                  {/* SUBMISSION & LINKED CONTENT */}
+                  <div className="mx-3 xl:mx-20 mt-10" data-aos="fade-up">
+                    <div className="text-white mb-8">
+                      <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+                        <h2 className="text-2xl text-center lg:text-3xl">
+                          Task 5 Submission
+                        </h2>
+                      </div>
+                    </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  flex-grow
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  How much the item grows relative to others. Example:
-                  flex-grow: 1;
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  flex-shrink
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  How much the item shrinks. Example: flex-shrink: 0; prevents
-                  shrinking.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  flex-basis
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Default size before growing/shrinking. Example: flex-basis:
-                  100px;
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  align-self
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Overrides container alignment for individual items. Example:
-                  align-self: flex-end;
-                </p>
-              </div>
-            </div>
+                    {/* Deadline Card */}
+                    <div className="mb-8" data-aos="fade-up">
+                      <Card2Blue
+                        titles="Deadline"
+                        desp="December 2nd, 2025"
+                        iconCategory="fa-calendar-days"
+                        iconFill="fa-regular"
+                      />
+                    </div>
 
-            <div className="mb-8" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Real-World Uses of Flexbox
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Navigation menus • Centering content easily • Card layouts •
-                  Toolbars or footers • Responsive button groups • Image
-                  galleries in a row
-                </p>
-              </div>
-            </div>
+                    {/* Submission Steps */}
+                    <div className="mb-8" data-aos="fade-up">
+                      <Card2Blue
+                        titles="Submission Instructions"
+                        desp="After completing everything above, you can upload your LinkedIn profile link using the link provided below."
+                        iconCategory="fa-check-to-slot"
+                        iconFill="fa-solid"
+                      />
+                    </div>
 
-            {/* Grid */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h3 className="text-white text-2xl text-center lg:text-4xl">
-                  CSS Grid Layout
-                </h3>
-              </div>
-            </div>
+                    {/* Action Button */}
+                    <div
+                      className="mb-8 flex justify-center"
+                      data-aos="fade-up"
+                    >
+                      <Button
+                        variant="contained"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSeh1ojNNdHvpEg0aB0_Y-4zbEj3Iu9uvBxaBHMYU0ajnZBxXg/viewform?usp=publish-editor"
+                        target="_blank"
+                        sx={{
+                          bgcolor: "transparent",
+                          color: "white",
+                          py: 2,
+                          px: 4,
+                          fontSize: "1.2rem",
+                          fontWeight: "bold",
+                          textTransform: "none",
+                          border: "1px solid white",
+                          borderRadius: "105px",
+                          transition: "all 0.3s ease-in-out",
+                          "&:hover": {
+                            bgcolor: "white",
+                            color: "black",
+                          },
+                        }}
+                      >
+                        {isMobile
+                          ? "Upload"
+                          : "Click Here to upload your completed LinkedIn profile"}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  What is CSS Grid?
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  CSS Grid is a two-dimensional layout system — meaning it can
-                  handle both rows and columns at the same time. It's ideal for
-                  page layouts, image galleries, and dashboards. To enable:
-                  display: grid;
-                </p>
-              </div>
-            </div>
+              {/* TAB 2: CSS LEARNING CONTENT */}
+              {tabValue === 1 && (
+                <div className="mx-3 xl:mx-20" data-aos="fade-up">
+                  <div className="text-white mb-8">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+                      <h2 className="text-3xl text-center lg:text-5xl">
+                        Introduction to CSS
+                      </h2>
+                    </div>
+                  </div>
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h4 className="text-white text-xl text-center lg:text-3xl">
-                  Grid Container Properties
-                </h4>
-              </div>
-            </div>
+                  {/* What is CSS */}
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS (Cascading Style Sheets) is a style sheet language
+                        used to describe the appearance and formatting of a
+                        webpage written in HTML. It helps control text color,
+                        font, and size; backgrounds and borders; spacing and
+                        layout of elements; and how pages look on different
+                        devices (responsive design). In short, HTML is the
+                        structure, and CSS is the style.
+                      </p>
+                    </div>
+                  </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  grid-template-columns
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Defines columns. Example: 1fr 1fr 1fr (3 equal columns) or
-                  repeat(3, 1fr)
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  grid-template-rows
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Defines rows. Example: 100px 200px (first row 100px, second
-                  200px)
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">gap</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Space between grid items. Example: gap: 15px; creates spacing
-                  between rows and columns.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  justify-items
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Aligns items horizontally within their cells. Values: center,
-                  start, end, stretch
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  align-items
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Aligns items vertically within their cells. Values: center,
-                  start, end, stretch
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  Example: 3-Column Grid
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  display: grid; grid-template-columns: repeat(3, 1fr); gap:
-                  15px; — Creates a 3-column layout with equal widths.
-                </p>
-              </div>
-            </div>
+                  {/* Why Use CSS */}
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Why Use CSS?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Before CSS, all styling was done directly inside HTML
+                        tags, which made web pages messy and hard to maintain.
+                        CSS separates content (HTML) from presentation (style).
+                        Advantages: Easier to maintain and update styles •
+                        Cleaner and more readable code • Same stylesheet can be
+                        applied to multiple pages • Better control over layout
+                        and design • Improves page loading speed.
+                      </p>
+                    </div>
+                  </div>
 
-            <div className="mb-5" data-aos="fade-up">
-              <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-                <h4 className="text-white text-xl text-center lg:text-3xl">
-                  Grid Item Properties
-                </h4>
-              </div>
-            </div>
+                  {/* Types of CSS */}
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        Types of CSS
+                      </h3>
+                    </div>
+                  </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  grid-column
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Defines column span. Example: grid-column: 1 / 3; spans from
-                  column 1 to 3.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">grid-row</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Defines row span. Example: grid-row: 1 / 2; occupies row 1
-                  only.
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  justify-self
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Align individual item horizontally. Example: justify-self:
-                  center;
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">
-                  align-self
-                </p>
-                <p className="text-base text-white lg:text-2xl">
-                  Align individual item vertically. Example: align-self: end;
-                </p>
-              </div>
-            </div>
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Inline CSS
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Written inside the HTML tag using the style attribute.
+                        Example: &lt;p style="color: red;"&gt;Text&lt;/p&gt;.
+                        Use case: Quick styling for a single element.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Internal CSS
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Written inside a &lt;style&gt; tag in the &lt;head&gt;
+                        section of the HTML page. Used for styling a single
+                        page.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        External CSS
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Written in a separate .css file and linked to the HTML
+                        using &lt;link rel="stylesheet" href="style.css"&gt;.
+                        Used for multiple pages with the same design. ✅ Best
+                        Practice for large projects.
+                      </p>
+                    </div>
+                  </div>
 
-            {/* Flexbox vs Grid */}
-            <div className="mb-5 mt-8" data-aos="fade-up">
-              <div className="px-1 flex flex-col justify-center items-center gap-1.5">
-                <FlexboxGridDemos />
-              </div>
-            </div>
+                  {/* CSS Syntax */}
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        CSS Syntax
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS works through rules. Each rule has two main parts:
+                        Selector (the HTML element you want to style) and
+                        Property-Value pairs (the style attributes you want to
+                        change). Format: selector &#123; property: value; &#125;
+                      </p>
+                    </div>
+                  </div>
 
-            <div
-              className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
-              data-aos="fade-up"
-            >
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Flexbox</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Layout Type: One-dimensional (row OR column) • Direction: Row
-                  or Column • Best For: Aligning items in a line • Example Use:
-                  Navbars, cards, button groups • Control Over Gaps: Partial
-                </p>
-              </div>
-              <div className="bg-black p-3 border-[#0a1929] border-2">
-                <p className="text-white text-2xl lg:text-3xl mb-2">Grid</p>
-                <p className="text-base text-white lg:text-2xl">
-                  Layout Type: Two-dimensional (rows AND columns) • Direction:
-                  Rows and Columns • Best For: Building full layouts • Example
-                  Use: Web page layout, galleries, dashboards • Control Over
-                  Gaps: Full (rows + columns)
-                </p>
-              </div>
-            </div>
+                  {/* CSS Selectors */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Selectors
+                      </h3>
+                    </div>
+                    <p className="text-white text-center mb-5 lg:text-xl">
+                      Selectors decide which elements the styles apply to
+                    </p>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Element Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles all elements of that type. Example: p &#123;
+                        &#125; styles all &lt;p&gt; elements.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Class Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles all elements with that class. Example: .note
+                        &#123; &#125; styles all elements with class="note".
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        ID Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles the element with that ID. Example: #header &#123;
+                        &#125; styles the element with id="header".
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Group Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles multiple elements at once. Example: h1, h2, h3
+                        &#123; &#125; styles all heading elements.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Universal Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles everything on the page. Example: * &#123; &#125;
+                        applies to all elements.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Descendant Selector
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Styles nested elements. Example: div p &#123; &#125;
+                        styles &lt;p&gt; only when inside &lt;div&gt;.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* CSS Box Model */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        The CSS Box Model
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is the Box Model?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Every element on a webpage is a rectangular box. The CSS
+                        Box Model describes how space is used around and inside
+                        elements. Each box has 4 layers (from inside to
+                        outside): Content (text or image inside) → Padding
+                        (space between content and border) → Border (line
+                        surrounding padding and content) → Margin (space outside
+                        the border).
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <BoxModel
+                      margin={27}
+                      border={40}
+                      padding={23}
+                      width={50}
+                      height={50}
+                      colors={{
+                        margin: "#F8B88B",
+                        border: "#F7DC6F",
+                        padding: "#98D8C8",
+                        content: "#4A90E2",
+                      }}
+                    />
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Margin
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Outer spacing around the element. Example: margin: 10px;
+                        creates space outside the border.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Padding
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Inner spacing between content and border. Example:
+                        padding: 20px; creates space inside the border.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Border
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Edge outline around the element. Example: border: 2px
+                        solid red; creates a red line around the element.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Width & Height
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Controls the inner content size. Example: width: 300px;
+                        height: 200px; sets the content dimensions.
+                      </p>
+                    </div>
+                    <div className="lg:col-span-2 xl:col-span-2 bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Total Element Width Calculation
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Total width = width + padding-left + padding-right +
+                        border-left + border-right + margin-left + margin-right.
+                        Example: For width: 200px, padding: 20px, border: 5px,
+                        margin: 10px → Total = 200 + 20 + 20 + 5 + 5 + 10 + 10 =
+                        270px
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Display Types */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Display and Positioning
+                      </h3>
+                    </div>
+                    <p className="text-white text-center mb-5 lg:text-xl">
+                      Before learning Flexbox and Grid, understand display types
+                    </p>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Block
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Takes full width, starts on a new line. Examples:
+                        &lt;div&gt;, &lt;p&gt;, &lt;h1&gt;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Inline
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Takes only as much width as needed. Examples:
+                        &lt;span&gt;, &lt;a&gt;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Inline-Block
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Behaves like inline but allows width and height to be
+                        set.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        None
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Hides the element completely from the page.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Flexbox */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Flexbox (Flexible Box Layout)
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is Flexbox?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Flexbox is a layout system designed to arrange items in
+                        one dimension — either row (horizontal) or column
+                        (vertical). It's perfect for navigation bars, cards, and
+                        responsive layouts. To enable: display: flex; — All
+                        child elements now line up horizontally by default.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Flex Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        flex-direction
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Direction of items. Values: row (horizontal), column
+                        (vertical), row-reverse, column-reverse
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-content
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Horizontal alignment. Values: center, flex-start,
+                        flex-end, space-between, space-around, space-evenly
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Vertical alignment. Values: center, flex-start,
+                        flex-end, stretch, baseline
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        flex-wrap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Allows wrapping onto multiple lines. Values: nowrap,
+                        wrap, wrap-reverse
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between flex items. Example: gap: 10px; creates
+                        spacing between all items.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Centering with Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Perfect centering: display: flex; justify-content:
+                        center; align-items: center; — Centers items both
+                        vertically and horizontally.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Flex Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        flex-grow
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        How much the item grows relative to others. Example:
+                        flex-grow: 1;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        flex-shrink
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        How much the item shrinks. Example: flex-shrink: 0;
+                        prevents shrinking.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        flex-basis
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Default size before growing/shrinking. Example:
+                        flex-basis: 100px;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Overrides container alignment for individual items.
+                        Example: align-self: flex-end;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Real-World Uses of Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Navigation menus • Centering content easily • Card
+                        layouts • Toolbars or footers • Responsive button groups
+                        • Image galleries in a row
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Grid Layout
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS Grid?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS Grid is a two-dimensional layout system — meaning it
+                        can handle both rows and columns at the same time. It's
+                        ideal for page layouts, image galleries, and dashboards.
+                        To enable: display: grid;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-columns
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines columns. Example: 1fr 1fr 1fr (3 equal columns)
+                        or repeat(3, 1fr)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-rows
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines rows. Example: 100px 200px (first row 100px,
+                        second 200px)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between grid items. Example: gap: 15px; creates
+                        spacing between rows and columns.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items horizontally within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items vertically within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Example: 3-Column Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        display: grid; grid-template-columns: repeat(3, 1fr);
+                        gap: 15px; — Creates a 3-column layout with equal
+                        widths.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-column
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines column span. Example: grid-column: 1 / 3; spans
+                        from column 1 to 3.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-row
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines row span. Example: grid-row: 1 / 2; occupies row
+                        1 only.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item horizontally. Example:
+                        justify-self: center;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item vertically. Example: align-self:
+                        end;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Real-World Uses of Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Navigation menus • Centering content easily • Card
+                        layouts • Toolbars or footers • Responsive button groups
+                        • Image galleries in a row
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Grid Layout
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS Grid?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS Grid is a two-dimensional layout system — meaning it
+                        can handle both rows and columns at the same time. It's
+                        ideal for page layouts, image galleries, and dashboards.
+                        To enable: display: grid;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-columns
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines columns. Example: 1fr 1fr 1fr (3 equal columns)
+                        or repeat(3, 1fr)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-rows
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines rows. Example: 100px 200px (first row 100px,
+                        second 200px)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between grid items. Example: gap: 15px; creates
+                        spacing between rows and columns.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items horizontally within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items vertically within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Example: 3-Column Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        display: grid; grid-template-columns: repeat(3, 1fr);
+                        gap: 15px; — Creates a 3-column layout with equal
+                        widths.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-column
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines column span. Example: grid-column: 1 / 3; spans
+                        from column 1 to 3.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-row
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines row span. Example: grid-row: 1 / 2; occupies row
+                        1 only.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item horizontally. Example:
+                        justify-self: center;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item vertically. Example: align-self:
+                        end;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Real-World Uses of Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Navigation menus • Centering content easily • Card
+                        layouts • Toolbars or footers • Responsive button groups
+                        • Image galleries in a row
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Grid Layout
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS Grid?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS Grid is a two-dimensional layout system — meaning it
+                        can handle both rows and columns at the same time. It's
+                        ideal for page layouts, image galleries, and dashboards.
+                        To enable: display: grid;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-columns
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines columns. Example: 1fr 1fr 1fr (3 equal columns)
+                        or repeat(3, 1fr)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-rows
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines rows. Example: 100px 200px (first row 100px,
+                        second 200px)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between grid items. Example: gap: 15px; creates
+                        spacing between rows and columns.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items horizontally within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items vertically within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Example: 3-Column Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        display: grid; grid-template-columns: repeat(3, 1fr);
+                        gap: 15px; — Creates a 3-column layout with equal
+                        widths.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-column
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines column span. Example: grid-column: 1 / 3; spans
+                        from column 1 to 3.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-row
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines row span. Example: grid-row: 1 / 2; occupies row
+                        1 only.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item horizontally. Example:
+                        justify-self: center;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item vertically. Example: align-self:
+                        end;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Real-World Uses of Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Navigation menus • Centering content easily • Card
+                        layouts • Toolbars or footers • Responsive button groups
+                        • Image galleries in a row
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Grid Layout
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS Grid?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS Grid is a two-dimensional layout system — meaning it
+                        can handle both rows and columns at the same time. It's
+                        ideal for page layouts, image galleries, and dashboards.
+                        To enable: display: grid;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-columns
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines columns. Example: 1fr 1fr 1fr (3 equal columns)
+                        or repeat(3, 1fr)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-rows
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines rows. Example: 100px 200px (first row 100px,
+                        second 200px)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between grid items. Example: gap: 15px; creates
+                        spacing between rows and columns.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items horizontally within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items vertically within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Example: 3-Column Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        display: grid; grid-template-columns: repeat(3, 1fr);
+                        gap: 15px; — Creates a 3-column layout with equal
+                        widths.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-column
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines column span. Example: grid-column: 1 / 3; spans
+                        from column 1 to 3.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-row
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines row span. Example: grid-row: 1 / 2; occupies row
+                        1 only.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item horizontally. Example:
+                        justify-self: center;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item vertically. Example: align-self:
+                        end;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Real-World Uses of Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Navigation menus • Centering content easily • Card
+                        layouts • Toolbars or footers • Responsive button groups
+                        • Image galleries in a row
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h3 className="text-white text-2xl text-center lg:text-4xl">
+                        CSS Grid Layout
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        What is CSS Grid?
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        CSS Grid is a two-dimensional layout system — meaning it
+                        can handle both rows and columns at the same time. It's
+                        ideal for page layouts, image galleries, and dashboards.
+                        To enable: display: grid;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Container Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-columns
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines columns. Example: 1fr 1fr 1fr (3 equal columns)
+                        or repeat(3, 1fr)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-template-rows
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines rows. Example: 100px 200px (first row 100px,
+                        second 200px)
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        gap
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Space between grid items. Example: gap: 15px; creates
+                        spacing between rows and columns.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items horizontally within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-items
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Aligns items vertically within their cells. Values:
+                        center, start, end, stretch
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Example: 3-Column Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        display: grid; grid-template-columns: repeat(3, 1fr);
+                        gap: 15px; — Creates a 3-column layout with equal
+                        widths.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5" data-aos="fade-up">
+                    <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
+                      <h4 className="text-white text-xl text-center lg:text-3xl">
+                        Grid Item Properties
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-4 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-column
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines column span. Example: grid-column: 1 / 3; spans
+                        from column 1 to 3.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        grid-row
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Defines row span. Example: grid-row: 1 / 2; occupies row
+                        1 only.
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        justify-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item horizontally. Example:
+                        justify-self: center;
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        align-self
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Align individual item vertically. Example: align-self:
+                        end;
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Flexbox vs Grid */}
+                  <div className="mb-5 mt-8" data-aos="fade-up">
+                    <div className="px-1 flex flex-col justify-center items-center gap-1.5">
+                      <FlexboxGridDemos />
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
+                    data-aos="fade-up"
+                  >
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Flexbox
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Layout Type: One-dimensional (row OR column) •
+                        Direction: Row or Column • Best For: Aligning items in a
+                        line • Example Use: Navbars, cards, button groups •
+                        Control Over Gaps: Partial
+                      </p>
+                    </div>
+                    <div className="bg-black p-3 border-[#0a1929] border-2">
+                      <p className="text-white text-2xl lg:text-3xl mb-2">
+                        Grid
+                      </p>
+                      <p className="text-base text-white lg:text-2xl">
+                        Layout Type: Two-dimensional (rows AND columns) •
+                        Direction: Rows and Columns • Best For: Building full
+                        layouts • Example Use: Web page layout, galleries,
+                        dashboards • Control Over Gaps: Full (rows + columns)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Box>
           </section>
+
+          <Box
+            sx={{ position: "relative", zIndex: 10, mt: 8 }}
+            data-aos="fade-up"
+          >
+            <FooterBar />
+          </Box>
         </main>
-        {/* TASK 4 SECTION */}
-        <section
-          id="task4"
-          className="mx-3 mt-15 xl:mx-20 mb-15"
-          data-aos="fade-up"
-        >
-          <div className="text-white mb-8">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
-              <h2 className="text-3xl text-center lg:text-5xl">
-                Task 4: Build an Expanded Personal Showcase Webpage
-              </h2>
-            </div>
-          </div>
-
-          {/* Task Overview */}
-          <div className="mb-8" data-aos="fade-up">
-            <Card2Blue
-              titles="Goal"
-              desp="Create a one-page personal showcase website that goes beyond a basic introduction by visually organizing your interests, achievements, and creative work using Flexbox and Grid. Your page should feel like a small portfolio — a space that reflects who you are, what you enjoy, and what you're proud of."
-            />
-          </div>
-
-          {/* Expected Outcome */}
-          <div className="mb-5" data-aos="fade-up">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-              <h3 className="text-white text-2xl text-center lg:text-4xl">
-                Expected Outcome
-              </h3>
-            </div>
-          </div>
-
-          <div
-            className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3 mb-8"
-            data-aos="fade-up"
-          >
-            <Card2Blue
-              titles="Header Section"
-              desp="A header with your name and a personalized theme (colors, fonts, or background images)."
-            />
-            <Card2Blue
-              titles="Profile Section"
-              desp="A profile section arranged using Flexbox (profile picture + short bio side by side or stacked on mobile)."
-            />
-            <Card2Blue
-              titles="Showcase Grid"
-              desp="A Showcase Grid using CSS Grid that displays your content — drawings, poems, photos, certificates, or any creative work."
-            />
-            <Card2Blue
-              titles="Hobbies/Interests"
-              desp="A section highlighting your hobbies/interests organized using Flexbox or Grid cards."
-            />
-            <Card2Blue
-              titles="Gallery/Works"
-              desp="A 'Works / Achievements / Gallery' area where you embed images, text snippets, or links to your creations."
-            />
-            <Card2Blue
-              titles="Footer"
-              desp="A footer with a quote, message, or social link. A theme that represents your personality (anime, minimal aesthetic, dark mode, colorful, etc.)."
-            />
-          </div>
-
-          {/* Step by Step */}
-          <div className="mb-5 mt-8" data-aos="fade-up">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-              <h3 className="text-white text-2xl text-center lg:text-4xl">
-                Step-by-Step Guide
-              </h3>
-            </div>
-          </div>
-
-          <div className="mb-8" data-aos="fade-up">
-            <Card2Blue
-              titles="Structure (HTML)"
-              desp="Make index.html and include: <header> → Your name + tagline | <section class='intro'> → Profile picture + bio text (Flexbox recommended) | <section class='showcase-grid'> → A Grid layout for your work/creations | <section class='interests'> → A list or cards of hobbies/interests | <footer> → Quote/social link. Tip: Break your page into clear sections and wrap each in <section> tags."
-              underlines={true}
-            />
-          </div>
-
-          <div className="mb-8" data-aos="fade-up">
-            <Card2Blue
-              titles="Styling (CSS)"
-              desp="Create your style.css. This is where your creativity shows. You should: Use Flexbox for the introduction section (image + text alignment) | Use CSS Grid to create a gallery or showcase area with multiple columns | Give your webpage a theme (anime, minimal, aesthetic, gamer, etc.) | Use border-radius: 50% for circular images | Center sections using margin: auto and control sizes with max-width | Add consistent spacing with padding, gap, and line-height | Make hover effects on images or cards (e.g., zoom on hover)."
-              underlines={true}
-            />
-          </div>
-
-          {/* Requirements Checklist */}
-          <div className="mb-5 mt-8" data-aos="fade-up">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-              <h3 className="text-white text-2xl text-center lg:text-4xl">
-                Requirements Checklist
-              </h3>
-            </div>
-          </div>
-
-          <div
-            className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
-            data-aos="fade-up"
-          >
-            <Card2Blue
-              titles="Flexbox Usage"
-              desp="At least one section must use Flexbox (profile intro, navigation, or interest cards)."
-            />
-            <Card2Blue
-              titles="Grid Layout"
-              desp="At least one section must use CSS Grid (gallery, showcase, or achievements grid)."
-            />
-            <Card2Blue
-              titles="Semantic HTML"
-              desp="Use proper tags: <header>, <section>, <footer>, <h1>, <p>, etc."
-            />
-            <Card2Blue
-              titles="Visual Theme"
-              desp="Your page should have a consistent color scheme and style that matches your personality."
-            />
-            <Card2Blue
-              titles="Responsive Elements"
-              desp="At least try to make one section adapt to different screen sizes (even if basic)."
-            />
-            <Card2Blue
-              titles="Creative Content"
-              desp="Include real or placeholder content (images, text, links) that represents you."
-            />
-          </div>
-
-          {/* Submission */}
-          <div className="mb-5 mt-8" data-aos="fade-up">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5">
-              <h3 className="text-white text-2xl text-center lg:text-4xl">
-                Submission & Tips
-              </h3>
-            </div>
-          </div>
-
-          <div
-            className="grid grid-cols-1 gap-3 lg:grid-cols-2 mb-8"
-            data-aos="fade-up"
-          >
-            <Card2Blue
-              titles="How to Submit"
-              desp="Push your index.html and style.css to GitHub. Deploy your page using GitHub Pages or Netlify. Submit the live link + GitHub repo link."
-            />
-            <Card2Blue
-              titles="Pro Tips"
-              desp="Start simple, then enhance. Use placeholder images from unsplash.com or picsum.photos. Comment your CSS so you remember what each section does. Test your page by resizing the browser window. Have fun with it — this is YOUR space!"
-            />
-          </div>
-
-          {/* Resources */}
-          {/* Resources */}
-          <div className="mb-8" data-aos="fade-up">
-            <div className="bg-black p-3 border-[#0a1929] border-2">
-              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
-                <p className="text-white text-2xl lg:text-3xl">
-                  Resources to Help You
-                </p>
-              </div>
-              <div className="text-base text-white lg:text-2xl">
-                <p className="mb-2">
-                  <a
-                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    MDN Flexbox Guide
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <a
-                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    MDN Grid Guide
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <a
-                    href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    CSS Tricks Flexbox
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <a
-                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    CSS Tricks Grid
-                  </a>
-                </p>
-                <p>
-                  Free Images:{" "}
-                  <a
-                    href="https://unsplash.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    unsplash.com
-                  </a>
-                  ,{" "}
-                  <a
-                    href="https://pexels.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-400"
-                  >
-                    pexels.com
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Final Note */}
-          <div className="mb-8" data-aos="fade-up">
-            <div className="bg-black p-3 border-[#0a1929] border-2">
-              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
-                <p className="text-white text-2xl lg:text-3xl">Final Note</p>
-              </div>
-              <p className="text-base text-white lg:text-2xl">
-                This task is not about perfection. It's about using what you've
-                learned (Flexbox, Grid, Box Model, Selectors) in a real project.
-                Build something that feels like yours. Make mistakes, Google
-                things, break your layout and fix it. That's how you actually
-                learn. Good luck!
-              </p>
-            </div>
-          </div>
-        </section>
-        {/* SUBMISSION SECTION */}
-        <section className="mx-3 mt-15 xl:mx-20 mb-15" data-aos="fade-up">
-          <div className="text-white mb-8">
-            <div className="bg-[#0a3931] p-3 flex flex-row justify-center items-center gap-1.5 mb-5">
-              <h2 className="text-3xl text-center lg:text-5xl">
-                Submission Instructions
-              </h2>
-            </div>
-          </div>
-          <div className="mb-8" data-aos="fade-up">
-            <Card2Blue titles="Deadline" desp="23rd November, 10pm" />
-          </div>
-          <div className="mb-8" data-aos="fade-up">
-            <Card2Blue
-              titles="Steps"
-              desp="After completing the task above, you’ll be prompted to: 1. Upload your project to GitHub using a repository (repo). 2. Publish your page live using GitHub Pages — so anyone can open it in a browser. 3. Upload the Github Pages link to a Google Form which will be distributed on the same day."
-            />
-          </div>
-          <div className="mb-8" data-aos="fade-up">
-            <div className="bg-black p-3 border-[#0a1929] border-2">
-              <div className="flex flex-row justify-start items-center gap-1.5 mb-2">
-                <p className="text-white text-2xl lg:text-3xl">Tutorials</p>
-              </div>
-              <div className="text-base text-white lg:text-2xl">
-                <p className="mb-2">
-                  <a
-                    href="https://www.theodinproject.com/lessons/foundations-setting-up-git"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-[#667eea] transition duration-300"
-                  >
-                    Setting up Git and Github
-                  </a>
-                </p>
-                <p>
-                  <a
-                    href="https://www.theodinproject.com/lessons/foundations-recipes#viewing-your-project-on-the-web"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-[#667eea] transition duration-300"
-                  >
-                    Viewing Your Project on the Web (GitHub Pages)
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <Box
-          sx={{ position: "relative", zIndex: 10, mt: 8 }}
-          data-aos="fade-up"
-        >
-          <FooterBar />
-        </Box>
       </Box>
     </ThemeProvider>
   );
