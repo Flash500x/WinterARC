@@ -766,20 +766,23 @@ const Navbar = () => {
                   iconCategory="fa-i-cursor"
                 ></Card2>
               </div>
-
-              <Card2
-                titles="Learn Flexbox & Grid"
-                desp="Then you can build: Any modern landing page layout you see."
-                iconFill="fa-solid"
-                iconCategory="fa-layer-group"
-              ></Card2>
+              <div className="lg:col-span-2 xl:col-span-1">
+                <Card2
+                  titles="Learn Flexbox & Grid"
+                  desp="Then you can build: Any modern landing page layout you see."
+                  iconFill="fa-solid"
+                  iconCategory="fa-layer-group"
+                ></Card2>
+              </div>
               {/* Removed xl:col-span-2 wrapper to make it xl:col-span-1 (the default) */}
-              <Card2
-                titles="Learn Media Queries"
-                desp="Then you can build: Sites that look incredible on a phone, tablet, and desktop. Media queries let you create responsive designs that adapt beautifully to any screen size.."
-                iconFill="fa-solid"
-                iconCategory="fa-clone"
-              ></Card2>
+              <div className="lg:col-span-2 xl:col-span">
+                <Card2
+                  titles="Learn Media Queries"
+                  desp="Then you can build: Sites that look incredible on a phone, tablet, and desktop. Media queries let you create responsive designs that adapt beautifully to any screen size.."
+                  iconFill="fa-solid"
+                  iconCategory="fa-clone"
+                ></Card2>
+              </div>
             </div>
           </section>
 
